@@ -142,11 +142,3 @@ if __name__ == "__main__":
     print(f"Created smart wallet: {wallet}")
     vote_on_proposal(wallet, proposal_id=123456789, support=1)  # Vote 'for' on proposal
 ```
-
-- **How It Utilizes the API**:
-  - Wallet creation: Calls the placeholder route to set up a wallet for the DAO token, unified across 6 chains (no manual gas setup needed).
-  - Voting: Encodes the vote as calldata and sends it via the API's execute route. The API handles signing, gas sponsorship, and any cross-chain logic (e.g., using the token's balance from any chain).
-  - Assumptions: The API supports API-key auth, gasless txs, and cross-chain token operations. If the API has additional routes (e.g., for transferring tokens or querying balances), add similar functions with placeholders like `TRANSFER_ROUTE = "/transfer-token"`.
-  - Customization: If voting needs to aggregate weights cross-chain on-chain, integrate a cross-chain oracle in the Governor's `_getVotes` function. For now, this keeps it simple.
-
-This setup gives you a fully functional DAO token with on-chain voting, integrated with the Smart Wallet API for easy, gasless user interactions. If you provide more details on the API (e.g., actual routes or docs), I can refine it!
