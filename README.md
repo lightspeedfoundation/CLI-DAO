@@ -105,22 +105,6 @@ GOVERNOR_ABI = [  # Minimal ABI for castVote function
     }
 ]
 
-def create_smart_wallet():
-    """
-    Creates a smart wallet for the DAO token across the 6 chains using the API.
-    Assumes the API unifies the token balance automatically.
-    """
-    payload = {
-        "token_symbol": "DAO",  # Specifies the single token this wallet operates on
-        "chains": SUPPORTED_CHAINS  # Requests support for all 6 chains
-    }
-    headers = {"Authorization": f"Bearer {API_KEY}"}
-    response = requests.post(BASE_URL + CREATE_WALLET_ROUTE, json=payload, headers=headers)
-    if response.status_code == 200:
-        return response.json().get("wallet_address")  # Assumes response includes unified wallet address
-    else:
-        raise Exception(f"Failed to create wallet: {response.text}")
-
 def vote_on_proposal(wallet_address, proposal_id, support, chain="ethereum"):
     """
     Executes a gasless vote using the Smart Wallet API.
